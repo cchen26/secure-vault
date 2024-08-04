@@ -1,0 +1,18 @@
+# Database
+POSTGRESQL_USERNAME: user
+POSTGRESQL_PASSWORD: pleaseletmein
+POSTGRESQL_HOST: 192.168.1.179
+POSTGRESQL_PORT: 5432
+POSTGRESQL_DATABASE: docdatabase
+
+
+# Server
+CONTAINER_PORT: 8085
+ACTIVE_PROFILE: prod
+
+# Email Config
+EMAIL_HOST: smtp.gmail.com
+EMAIL_PORT: 587
+EMAIL_ID: securevault069@gmail.com
+EMAIL_PASSWORD: ptad wiar rdsk mmjo
+VERIFY_EMAIL_HOST: http://localhost:8085
