@@ -28,6 +28,7 @@ public class UserUtils {
                 .lastLogin(now())
                 .accountNonExpired(true)
                 .accountNonLocked(true)
+                .is_mfa(false)
                 .enabled(false)
                 .loginAttempts(0)
                 .qrCodeSecret(EMPTY)

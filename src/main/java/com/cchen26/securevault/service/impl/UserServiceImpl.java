@@ -16,6 +16,7 @@ import com.cchen26.securevault.service.UserService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.User;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
@@ -55,6 +56,24 @@ public class UserServiceImpl implements UserService {
     public RoleEntity getRoleName(String name){
         var role = roleRepository.findByNameIgnoreCase(name);
         return role.orElseThrow(() -> new ApiException("Role not found"));
+    }
+
+    @Override
+    public void verifyAccountKey(String key){
+        var confirmationEntity = getUserConfirmation(key);
+        var userEntity = getUserEntityByEmail(confirmationEntity.getUserEntity().getEmail());
+        userEntity.setEnabled(true);
+        userRepository.save(userEntity);
+        confirmationRepository.delete(confirmationEntity);
+    }
+
+    private UserEntity getUserEntityByEmail(String email) {
+        var userByEmail = userRepository.findByEmailIgnoreCase(email);
+        return userByEmail.orElseThrow(() -> new ApiException("User not found"));
+    }
+
+    private ConfirmationEntity getUserConfirmation(String key){
+        return confirmationRepository.findByKey(key).orElseThrow(() -> new ApiException("Confirmation key not found"));
     }
 
     private UserEntity createNewUser(String firstName, String lastName, String email) {
