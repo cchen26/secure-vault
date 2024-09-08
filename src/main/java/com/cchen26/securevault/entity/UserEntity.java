@@ -53,6 +53,6 @@ public class UserEntity extends Auditable {
                     name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
                     name = "role_id", referencedColumnName = "id"))
-    private RoleEntity role; // TODO create Rol class and map here with JPA
+    private RoleEntity role;
 
 }

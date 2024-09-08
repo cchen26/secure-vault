@@ -16,3 +16,6 @@ EMAIL_PORT: 587
 EMAIL_ID: securevault069@gmail.com
 EMAIL_PASSWORD: ptad wiar rdsk mmjo
 VERIFY_EMAIL_HOST: http://localhost:8085
+
+JWT_EXPIRATION: 432_000_000
+JWT_SECRET: ${SECRET}
