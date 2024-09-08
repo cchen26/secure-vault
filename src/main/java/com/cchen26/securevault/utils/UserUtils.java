@@ -1,13 +1,14 @@
 package com.cchen26.securevault.utils;
 
+import com.cchen26.securevault.dto.User;
+import com.cchen26.securevault.entity.CredentialEntity;
 import com.cchen26.securevault.entity.RoleEntity;
 import com.cchen26.securevault.entity.UserEntity;
-import com.fasterxml.jackson.databind.introspect.TypeResolutionContext;
-import org.antlr.v4.runtime.atn.SemanticContext;
+import org.springframework.beans.BeanUtils;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
+import static com.cchen26.securevault.constant.Constants.NINETY_DAYS;
 import static java.time.LocalDateTime.now;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 
@@ -38,4 +39,23 @@ public class UserUtils {
                 .role(role)
                 .build();
     }
+
+
+    public static User fromUserEntity(UserEntity userEntity, RoleEntity role, CredentialEntity credentialEntity) {
+        User user = new User();
+        BeanUtils.copyProperties(userEntity, user);
+        user.setLastLogin(userEntity.getLastLogin().toString());
+        user.setCredentialsNonExpired(isCredentialsNonExpired(credentialEntity));
+        user.setCreatedAt(userEntity.getCreatedAt().toString());
+        user.setUpdatedAt(userEntity.getUpdatedAt().toString());
+        user.setRole(role.getName());
+        user.setAuthorities(role.getAuthorities().getValue());
+        return user;
+    }
+
+    public static boolean isCredentialsNonExpired(CredentialEntity credentialEntity) {
+        return credentialEntity.getUpdatedAt().plusDays(NINETY_DAYS).isAfter(now());
+    }
+
+
 }
