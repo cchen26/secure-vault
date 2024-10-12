@@ -4,11 +4,20 @@ import com.cchen26.securevault.dto.User;
 import com.cchen26.securevault.entity.CredentialEntity;
 import com.cchen26.securevault.entity.RoleEntity;
 import com.cchen26.securevault.entity.UserEntity;
+import com.cchen26.securevault.exception.ApiException;
+import dev.samstevens.totp.code.DefaultCodeGenerator;
+import dev.samstevens.totp.code.HashingAlgorithm;
+import dev.samstevens.totp.qr.QrData;
+import dev.samstevens.totp.qr.ZxingPngQrGenerator;
+import dev.samstevens.totp.secret.DefaultSecretGenerator;
 import org.springframework.beans.BeanUtils;
 
 import java.util.UUID;
+import java.util.function.BiFunction;
+import java.util.function.Supplier;
 
 import static com.cchen26.securevault.constant.Constants.NINETY_DAYS;
+import static dev.samstevens.totp.util.Utils.getDataUriForImage;
 import static java.time.LocalDateTime.now;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 
@@ -57,5 +66,27 @@ public class UserUtils {
         return credentialEntity.getUpdatedAt().plusDays(NINETY_DAYS).isAfter(now());
     }
 
+    public static BiFunction<String, String, QrData> qrDataFunction = (email, qrCodeSecret) -> new QrData.Builder()
+            .issuer("SECURE VAULT")
+            .label(email)
+            .secret(qrCodeSecret)
+            .algorithm(HashingAlgorithm.SHA1)
+            .digits(6)
+            .period(30)
+            .build();
+
+    public static BiFunction<String, String, String> qrCodeImageUri = (email, qrCodeSecret) -> {
+        var data = qrDataFunction.apply(email, qrCodeSecret);
+        var generator = new ZxingPngQrGenerator();
+        byte[] imageData;
+        try {
+            imageData = generator.generate(data);
+        } catch (Exception e) {
+            throw new ApiException("Unable to create QR code URI");
+        }
+        return getDataUriForImage(imageData, generator.getImageMimeType());
+    };
+
+    public static Supplier<String> qrCodeSecret = () -> new DefaultSecretGenerator().generate();
 
 }

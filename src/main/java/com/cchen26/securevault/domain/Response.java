@@ -15,6 +15,4 @@ import static com.fasterxml.jackson.annotation.JsonInclude.*;
  */
 @JsonInclude(Include.NON_DEFAULT)
 public record Response(String time, int code, String path, HttpStatus status, String message, String exception, Map<?, ?> data) {
-
-
 }

@@ -17,7 +17,7 @@ public class RoleConverter implements AttributeConverter<Authority, String> {
 
     @Override
     public String convertToDatabaseColumn(Authority authority) {
-        if (authority == null) {
+        if(authority == null){
             return null;
         }
         return authority.getValue();
@@ -25,12 +25,12 @@ public class RoleConverter implements AttributeConverter<Authority, String> {
 
     @Override
     public Authority convertToEntityAttribute(String code) {
-        if (code == null) {
+        if(code == null) {
             return null;
         }
         return Stream.of(Authority.values())
                 .filter(authority -> authority.getValue().equals(code))
                 .findFirst()
-                .orElseThrow(IllegalAccessError::new);
+                .orElseThrow(IllegalArgumentException::new);
     }
 }
