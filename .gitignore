@@ -34,3 +34,6 @@ build/
 
 ### environment variablesSS
 .env
+
+src/main/resources/application-prod.yml
+
