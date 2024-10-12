@@ -16,3 +16,4 @@ import java.util.Optional;
 public interface CredentialRepository extends JpaRepository<CredentialEntity, Long> {
     Optional<CredentialEntity> getCredentialByUserEntityId(Long userId);
 }
+

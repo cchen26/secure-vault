@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS users
     image_url           CHARACTER VARYING(255)          DEFAULT 'https://cdn-icons-png.flaticon.com/512/149/149071.png',
     last_login          TIMESTAMP(6) WITH TIME ZONE     DEFAULT CURRENT_TIMESTAMP,
     login_attempts      INTEGER                         DEFAULT 0,
-    mfa                 BOOLEAN                NOT NULL DEFAULT FALSE,
+    is_mfa              BOOLEAN                NOT NULL DEFAULT FALSE,
     enabled             BOOLEAN                NOT NULL DEFAULT FALSE,
     account_non_expired BOOLEAN                NOT NULL DEFAULT FALSE,
     account_non_locked  BOOLEAN                NOT NULL DEFAULT FALSE,
