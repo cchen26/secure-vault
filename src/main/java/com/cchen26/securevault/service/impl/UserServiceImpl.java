@@ -55,7 +55,7 @@ import static org.apache.commons.lang3.StringUtils.EMPTY;
  * @since 2024-06-24
  */
 
-Service
+@Service
 @Transactional(rollbackOn = Exception.class)
 @RequiredArgsConstructor
 @Slf4j
@@ -304,16 +304,15 @@ public class UserServiceImpl implements UserService {
         }
     };
 
-    private boolean verifyCode(String qrCode, String qrCodeSecret) {
+    private void verifyCode(String qrCode, String qrCodeSecret) {
         TimeProvider timeProvider = new SystemTimeProvider();
         CodeGenerator codeGenerator = new DefaultCodeGenerator();
         CodeVerifier codeVerifier = new DefaultCodeVerifier(codeGenerator, timeProvider);
-        if(codeVerifier.isValidCode(qrCodeSecret, qrCode)) {
-            return true;
-        } else {
+        if (!codeVerifier.isValidCode(qrCodeSecret, qrCode)) {
             throw new ApiException("Invalid QR code. Please try again.");
         }
     }
+
 
     private UserEntity getUserEntityByUserId(String userId) {
         var userByUserId = userRepository.findUserByUserId(userId);

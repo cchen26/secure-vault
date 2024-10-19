@@ -5,7 +5,6 @@ import com.cchen26.securevault.entity.CredentialEntity;
 import com.cchen26.securevault.entity.RoleEntity;
 import com.cchen26.securevault.entity.UserEntity;
 import com.cchen26.securevault.exception.ApiException;
-import dev.samstevens.totp.code.DefaultCodeGenerator;
 import dev.samstevens.totp.code.HashingAlgorithm;
 import dev.samstevens.totp.qr.QrData;
 import dev.samstevens.totp.qr.ZxingPngQrGenerator;
@@ -17,6 +16,7 @@ import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
 import static com.cchen26.securevault.constant.Constants.NINETY_DAYS;
+import static com.cchen26.securevault.constant.Constants.SECURE_VAULT;
 import static dev.samstevens.totp.util.Utils.getDataUriForImage;
 import static java.time.LocalDateTime.now;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
@@ -28,8 +28,9 @@ import static org.apache.commons.lang3.StringUtils.EMPTY;
  * @email chaochen234@gmail.com
  * @since 2024-06-30
  */
+
 public class UserUtils {
-    public static UserEntity createUserEntity(String firstName, String lastName, String email, RoleEntity role){
+    public static UserEntity createUserEntity(String firstName, String lastName, String email, RoleEntity role) {
         return UserEntity.builder()
                 .userId(UUID.randomUUID().toString())
                 .firstName(firstName)
@@ -38,7 +39,7 @@ public class UserUtils {
                 .lastLogin(now())
                 .accountNonExpired(true)
                 .accountNonLocked(true)
-                .is_1mfa(false)
+                .mfa(false)
                 .enabled(false)
                 .loginAttempts(0)
                 .qrCodeSecret(EMPTY)
@@ -67,7 +68,7 @@ public class UserUtils {
     }
 
     public static BiFunction<String, String, QrData> qrDataFunction = (email, qrCodeSecret) -> new QrData.Builder()
-            .issuer("SECURE VAULT")
+            .issuer(SECURE_VAULT)
             .label(email)
             .secret(qrCodeSecret)
             .algorithm(HashingAlgorithm.SHA1)
@@ -81,12 +82,13 @@ public class UserUtils {
         byte[] imageData;
         try {
             imageData = generator.generate(data);
-        } catch (Exception e) {
+        } catch (Exception exception) {
+            //throw new ApiException(exception.getMessage());
             throw new ApiException("Unable to create QR code URI");
         }
         return getDataUriForImage(imageData, generator.getImageMimeType());
+
     };
 
     public static Supplier<String> qrCodeSecret = () -> new DefaultSecretGenerator().generate();
-
 }
