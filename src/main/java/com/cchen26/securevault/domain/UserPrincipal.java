@@ -16,6 +16,7 @@ import java.util.Collection;
  * @email chaochen234@gmail.com
  * @since 2024-09-07
  */
+
 @RequiredArgsConstructor
 public class UserPrincipal implements UserDetails {
     @Getter

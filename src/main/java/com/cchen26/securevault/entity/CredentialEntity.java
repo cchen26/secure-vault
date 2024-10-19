@@ -15,9 +15,11 @@ import static jakarta.persistence.FetchType.*;
  * @email chaochen234@gmail.com
  * @since 2024-06-20
  */
+
 @Getter
 @Setter
 @ToString
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -38,3 +40,4 @@ public class CredentialEntity extends Auditable {
         this.password = password;
     }
 }
+

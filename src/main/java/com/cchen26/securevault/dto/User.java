@@ -9,7 +9,6 @@ import lombok.Data;
  * @since 2024-09-02
  */
 
-
 @Data
 public class User {
     private Long id;
@@ -32,5 +31,5 @@ public class User {
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
     private boolean enabled;
-    private boolean is_mfa;
+    private boolean mfa;
 }

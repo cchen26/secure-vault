@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
  * @email chaochen234@gmail.com
  * @since 2024-09-03
  */
+
 @Slf4j
 public class CacheStore<K, V> {
     private final Cache<K, V> cache;

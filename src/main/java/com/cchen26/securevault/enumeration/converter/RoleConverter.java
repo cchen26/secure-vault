@@ -12,6 +12,7 @@ import java.util.stream.Stream;
  * @email chaochen234@gmail.com
  * @since 2024-06-19
  */
+
 @Converter(autoApply = true)
 public class RoleConverter implements AttributeConverter<Authority, String> {
 

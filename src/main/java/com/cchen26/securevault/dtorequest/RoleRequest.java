@@ -11,6 +11,7 @@ import lombok.Setter;
  * @email chaochen234@gmail.com
  * @since 2024-10-05
  */
+
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)

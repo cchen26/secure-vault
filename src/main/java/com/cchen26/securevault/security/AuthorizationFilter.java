@@ -32,6 +32,7 @@ import static org.springframework.http.HttpMethod.OPTIONS;
  * @email chaochen234@gmail.com
  * @since 2024-09-07
  */
+
 @Component
 @RequiredArgsConstructor
 @Slf4j
@@ -47,7 +48,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
                 RequestContext.setUserId(jwtService.getTokenData(accessToken.get(), TokenData::getUser).getId());
             } else {
                 var refreshToken = jwtService.extractToken(request, REFRESH.getValue());
-                if (refreshToken.isPresent() && jwtService.getTokenData(refreshToken.get(), TokenData::isValid)) {
+                if(refreshToken.isPresent() && jwtService.getTokenData(refreshToken.get(), TokenData::isValid)) {
                     var user = jwtService.getTokenData(refreshToken.get(), TokenData::getUser);
                     SecurityContextHolder.getContext().setAuthentication(getAuthentication(jwtService.createToken(user, Token::getAccess), request));
                     jwtService.addCookie(response, user, ACCESS);
@@ -67,9 +68,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         //var shouldNotFilter = request.getMethod().equalsIgnoreCase(OPTIONS.name()) || asList(PUBLIC_ROUTES).contains(request.getRequestURI());
         var shouldNotFilter = request.getMethod().equalsIgnoreCase(OPTIONS.name()) || asList(PUBLIC_ROUTES).contains(request.getRequestURI());
-        if (shouldNotFilter) {
-            RequestContext.setUserId(0L);
-        }
+        if(shouldNotFilter) { RequestContext.setUserId(0L); }
         return shouldNotFilter;
     }
 

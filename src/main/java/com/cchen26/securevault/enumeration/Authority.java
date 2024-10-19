@@ -8,6 +8,7 @@ import static com.cchen26.securevault.constant.Constants.*;
  * @email chaochen234@gmail.com
  * @since 2024-06-19
  */
+
 public enum Authority {
     USER(USER_AUTHORITIES),
     ADMIN(ADMIN_AUTHORITIES),

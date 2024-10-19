@@ -12,6 +12,7 @@ import lombok.Setter;
  * @email chaochen234@gmail.com
  * @since 2024-07-07
  */
+
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -27,5 +28,4 @@ public class UserRequest {
     private String password;
     private String bio;
     private String phone;
-
 }

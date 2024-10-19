@@ -18,6 +18,7 @@ import static com.cchen26.securevault.enumeration.TokenType.REFRESH;
  * @email chaochen234@gmail.com
  * @since 2024-10-05
  */
+
 @Service
 @RequiredArgsConstructor
 public class ApiLogoutHandler implements LogoutHandler {

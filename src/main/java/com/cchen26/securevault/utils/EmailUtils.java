@@ -6,6 +6,7 @@ package com.cchen26.securevault.utils;
  * @email chaochen234@gmail.com
  * @since 2024-06-22
  */
+
 public class EmailUtils {
 
     public static String getEmailMessage(String name, String host, String key) {

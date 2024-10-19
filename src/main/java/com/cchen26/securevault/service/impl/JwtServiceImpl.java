@@ -45,6 +45,7 @@ import static org.springframework.security.core.authority.AuthorityUtils.commaSe
  * @email chaochen234@gmail.com
  * @since 2024-09-05
  */
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -59,6 +60,7 @@ public class JwtServiceImpl extends JwtConfiguration implements JwtService {
                     .build()
                     .parseSignedClaims(token)
                     .getPayload();
+
     private final Function<String, String> subject = token -> getClaimsValue(token, Claims::getSubject);
 
     private final BiFunction<HttpServletRequest, String, Optional<String>> extractToken = (request, cookieName) ->
@@ -95,13 +97,14 @@ public class JwtServiceImpl extends JwtConfiguration implements JwtService {
                     .expiration(from(now().plusSeconds(getExpiration())))
                     .compact();
 
+
     private final TriConsumer<HttpServletResponse, User, TokenType> addCookie = (response, user, type) -> {
         switch (type) {
             case ACCESS -> {
                 var accessToken = createToken(user, Token::getAccess);
                 var cookie = new Cookie(type.getValue(), accessToken);
                 cookie.setHttpOnly(true);
-                //cookie.setSecure(true);
+                cookie.setSecure(true);
                 cookie.setMaxAge(2 * 60);
                 cookie.setPath("/");
                 cookie.setAttribute("SameSite", NONE.name());
@@ -111,7 +114,7 @@ public class JwtServiceImpl extends JwtConfiguration implements JwtService {
                 var refreshToken = createToken(user, Token::getRefresh);
                 var cookie = new Cookie(type.getValue(), refreshToken);
                 cookie.setHttpOnly(true);
-                //cookie.setSecure(true);
+                cookie.setSecure(true);
                 cookie.setMaxAge(2 * 60 * 60);
                 cookie.setPath("/");
                 cookie.setAttribute("SameSite", NONE.name());
@@ -128,7 +131,6 @@ public class JwtServiceImpl extends JwtConfiguration implements JwtService {
             commaSeparatedStringToAuthorityList(new StringJoiner(AUTHORITY_DELIMITER)
                     .add(claimsFunction.apply(token).get(AUTHORITIES, String.class))
                     .add(ROLE_PREFIX + claimsFunction.apply(token).get(ROLE, String.class)).toString());
-
 
     @Override
     public String createToken(User user, Function<Token, String> tokenFunction) {
@@ -160,7 +162,7 @@ public class JwtServiceImpl extends JwtConfiguration implements JwtService {
     @Override
     public void removeCookie(HttpServletRequest request, HttpServletResponse response, String cookieName) {
         var optionalCookie = extractCookie.apply(request, cookieName);
-        if (optionalCookie.isPresent()) {
+        if(optionalCookie.isPresent()) {
             var cookie = optionalCookie.get();
             cookie.setMaxAge(0);
             response.addCookie(cookie);

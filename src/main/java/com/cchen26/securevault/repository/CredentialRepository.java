@@ -12,6 +12,7 @@ import java.util.Optional;
  * @email chaochen234@gmail.com
  * @since 2024-06-24
  */
+
 @Repository
 public interface CredentialRepository extends JpaRepository<CredentialEntity, Long> {
     Optional<CredentialEntity> getCredentialByUserEntityId(Long userId);

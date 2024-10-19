@@ -15,6 +15,7 @@ import java.util.List;
  * @email chaochen234@gmail.com
  * @since 2024-10-05
  */
+
 public interface DocumentService {
     Page<IDocument> getDocuments(int page, int size);
     Page<IDocument> getDocuments(int page, int size, String name);

@@ -19,18 +19,18 @@ import static com.cchen26.securevault.utils.EmailUtils.getResetPasswordMessage;
  * @email chaochen234@gmail.com
  * @since 2024-06-20
  */
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class EmailServiceImpl implements EmailService {
     private static final String NEW_USER_ACCOUNT_VERIFICATION = "New User Account Verification";
-    private static final String PASSWORD_RESET_REQUEST = "Password Reset Request";
+    private static final String PASSWORD_RESET_REQUEST = "Reset Password Request";
     private final JavaMailSender sender;
     @Value("${spring.mail.verify.host}")
     private String host;
     @Value("${spring.mail.username}")
     private String fromEmail;
-
 
     @Override
     @Async
@@ -44,10 +44,8 @@ public class EmailServiceImpl implements EmailService {
             sender.send(message);
         } catch (Exception exception) {
             log.error(exception.getMessage());
-            //TODO dont throw
             throw new ApiException("Unable to send email");
         }
-
     }
 
     @Override
@@ -62,7 +60,6 @@ public class EmailServiceImpl implements EmailService {
             sender.send(message);
         } catch (Exception exception) {
             log.error(exception.getMessage());
-            //TODO dont throw
             throw new ApiException("Unable to send email");
         }
     }

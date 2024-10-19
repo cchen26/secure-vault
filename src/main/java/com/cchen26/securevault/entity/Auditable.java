@@ -21,11 +21,12 @@ import static java.time.LocalDateTime.*;
  * @email chaochen234@gmail.com
  * @since 2024-06-19
  */
+
 @Getter
 @Setter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties(value = {"createdAt", "updatedAt"}, allowGetters = true)
+@JsonIgnoreProperties(value = { "createdAt", "updatedAt" }, allowGetters = true)
 public abstract class Auditable {
     @Id
     @SequenceGenerator(name = "primary_key_seq", sequenceName = "primary_key_seq", allocationSize = 1)
@@ -37,6 +38,7 @@ public abstract class Auditable {
     private Long createdBy;
     @NotNull
     private Long updatedBy;
+
     @NotNull
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -45,13 +47,10 @@ public abstract class Auditable {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-
     @PrePersist
     public void beforePersist() {
-        var userId = 0L; //RequestContext.getUserId();
-//        if(userId == null){
-//            throw new ApiException("Cannot persist entity without user ID in Request Context for this thread");
-//        }
+        var userId = RequestContext.getUserId();
+        if(userId == null) { throw new ApiException("Cannot persist entity without user ID in Request Context for this thread"); }
         setCreatedAt(now());
         setCreatedBy(userId);
         setUpdatedBy(userId);
@@ -60,10 +59,8 @@ public abstract class Auditable {
 
     @PreUpdate
     public void beforeUpdate() {
-        var userId = 0L;// RequestContext.getUserId();
-//        if(userId == null){
-//            throw new ApiException("Cannot update entity without user ID in Request Context for this thread");
-//        }
+        var userId = RequestContext.getUserId();
+        if(userId == null) { throw new ApiException("Cannot update entity without user ID in Request Context for this thread"); }
         setUpdatedAt(now());
         setUpdatedBy(userId);
     }

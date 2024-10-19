@@ -41,7 +41,7 @@ public class UserEntity extends Auditable {
     private boolean accountNonExpired;
     private boolean accountNonLocked;
     private boolean enabled;
-    private boolean is_mfa;
+    private boolean mfa;
     @JsonIgnore
     private String qrCodeSecret;
     @Column(columnDefinition = "text")
@@ -51,8 +51,7 @@ public class UserEntity extends Auditable {
             name = "user_roles",
             joinColumns = @JoinColumn(
                     name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
+            inverseJoinColumns =  @JoinColumn(
                     name = "role_id", referencedColumnName = "id"))
     private RoleEntity role;
-
 }

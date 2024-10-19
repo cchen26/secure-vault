@@ -8,7 +8,6 @@ import com.cchen26.securevault.entity.CredentialEntity;
 import com.cchen26.securevault.entity.RoleEntity;
 import com.cchen26.securevault.entity.UserEntity;
 import com.cchen26.securevault.enumeration.Authority;
-import com.cchen26.securevault.enumeration.EventType;
 import com.cchen26.securevault.enumeration.LoginType;
 import com.cchen26.securevault.event.UserEvent;
 import com.cchen26.securevault.exception.ApiException;
@@ -36,7 +35,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 import java.util.function.BiFunction;
 
 import static com.cchen26.securevault.constant.Constants.FILE_STORAGE;
@@ -56,7 +54,8 @@ import static org.apache.commons.lang3.StringUtils.EMPTY;
  * @email cache234@gmail.com
  * @since 2024-06-24
  */
-@Service
+
+Service
 @Transactional(rollbackOn = Exception.class)
 @RequiredArgsConstructor
 @Slf4j
@@ -144,7 +143,7 @@ public class UserServiceImpl implements UserService {
         var codeSecret = qrCodeSecret.get();
         userEntity.setQrCodeImageUri(qrCodeImageUri.apply(userEntity.getEmail(), codeSecret));
         userEntity.setQrCodeSecret(codeSecret);
-        userEntity.set_mfa(true);
+        userEntity.setMfa(true);
         userRepository.save(userEntity);
         return fromUserEntity(userEntity, userEntity.getRole(), getUserCredentialById(userEntity.getId()));
     }
@@ -152,7 +151,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User cancelMfa(Long id) {
         var userEntity = getUserEntityById(id);
-        userEntity.set_mfa(false);
+        userEntity.setMfa(false);
         userEntity.setQrCodeSecret(EMPTY);
         userEntity.setQrCodeImageUri(EMPTY);
         userRepository.save(userEntity);
@@ -258,7 +257,7 @@ public class UserServiceImpl implements UserService {
     public void toggleCredentialsExpired(String userId) {
         var userEntity = getUserEntityByUserId(userId);
         var credentials = getUserCredentialById(userEntity.getId());
-        //credentials.setUpdatedAt(LocalDateTime.of(1995, 7, 12, 11, 11));
+        credentials.setUpdatedAt(LocalDateTime.of(1995, 7, 12, 11, 11));
         /*if (credentials.getUpdatedAt().plusDays(NINETY_DAYS).isAfter(now())) {
             credentials.setUpdatedAt(now());
         } else {

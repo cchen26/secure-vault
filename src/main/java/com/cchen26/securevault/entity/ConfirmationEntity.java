@@ -20,15 +20,17 @@ import static jakarta.persistence.FetchType.EAGER;
  * @email chaochen234@gmail.com
  * @since 2024-06-20
  */
+
 @Getter
 @Setter
 @ToString
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "confirmations")
 @JsonInclude(NON_DEFAULT)
-public class ConfirmationEntity extends Auditable{
+public class ConfirmationEntity  extends Auditable {
     private String key;
     @OneToOne(targetEntity = UserEntity.class, fetch = EAGER)
     @JoinColumn(name = "user_id", nullable = false)

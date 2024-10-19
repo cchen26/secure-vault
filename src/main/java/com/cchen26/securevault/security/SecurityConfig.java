@@ -12,6 +12,7 @@ import static com.cchen26.securevault.constant.Constants.STRENGTH;
  * @email chaochen234@gmail.com
  * @since 2024-09-07
  */
+
 @Configuration
 public class SecurityConfig {
     @Bean

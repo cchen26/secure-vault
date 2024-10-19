@@ -17,6 +17,7 @@ import java.util.function.Function;
  * @email chaochen234@gmail.com
  * @since 2024-09-04
  */
+
 public interface JwtService {
     String createToken(User user, Function<Token, String> tokenFunction);
     Optional<String> extractToken(HttpServletRequest request, String tokenType);

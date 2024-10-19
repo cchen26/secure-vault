@@ -9,6 +9,7 @@ import com.cchen26.securevault.exception.ApiException;
  * @email chaochen234@gmail.com
  * @since 2024-09-21
  */
+
 public class UserValidation {
 
     public static void verifyAccountStatus(UserEntity user) {

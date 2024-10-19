@@ -45,7 +45,7 @@ public class ApiAuthenticationFilter extends AbstractAuthenticationProcessingFil
     private final UserService userService;
     private final JwtService jwtService;
 
-    protected ApiAuthenticationFilter(AuthenticationManager authenticationManager, UserService userService, JwtService jwtService) {
+    public ApiAuthenticationFilter(AuthenticationManager authenticationManager, UserService userService, JwtService jwtService) {
         super(new AntPathRequestMatcher(LOGIN_PATH, POST.name()), authenticationManager);
         this.userService = userService;
         this.jwtService = jwtService;
@@ -69,7 +69,7 @@ public class ApiAuthenticationFilter extends AbstractAuthenticationProcessingFil
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
         var user = (User) authentication.getPrincipal();
         userService.updateLoginAttempt(user.getEmail(), LOGIN_SUCCESS);
-        var httpResponse = user.is_mfa() ? sendQrCode(request, user) : sendResponse(request, response, user);
+        var httpResponse = user.isMfa() ? sendQrCode(request, user) : sendResponse(request, response, user);
         response.setContentType(APPLICATION_JSON_VALUE);
         response.setStatus(OK.value());
         var out = response.getOutputStream();

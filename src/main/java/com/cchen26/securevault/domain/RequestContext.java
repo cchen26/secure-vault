@@ -6,11 +6,11 @@ package com.cchen26.securevault.domain;
  * @email chaochen234@gmail.com
  * @since 2024-06-19
  */
+
 public class RequestContext {
     private static final ThreadLocal<Long> USER_ID = new ThreadLocal<>();
 
-    private RequestContext() {
-    }
+    private RequestContext() {}
 
     public static void start() {
         USER_ID.remove();

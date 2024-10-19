@@ -6,6 +6,7 @@ package com.cchen26.securevault.enumeration;
  * @email chaochen234@gmail.com
  * @since 2024-09-05
  */
+
 public enum TokenType {
     ACCESS("access-token"), REFRESH("refresh-token");
 

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
  * @email chaochen234@gmail.com
  * @since 2024-09-05
  */
+
 @Getter
 @Setter
 public class JwtConfiguration {

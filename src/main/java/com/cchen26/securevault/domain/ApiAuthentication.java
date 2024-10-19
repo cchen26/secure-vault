@@ -15,13 +15,12 @@ import java.util.Collection;
  * @email chaochen234@gmail.com
  * @since 2024-09-02
  */
+
 public class ApiAuthentication extends AbstractAuthenticationToken {
     private static final String PASSWORD_PROTECTED = "[PASSWORD PROTECTED]";
     private static final String EMAIL_PROTECTED = "[EMAIL PROTECTED]";
     private User user;
-    @Getter
     private String email;
-    @Getter
     private String password;
     private boolean authenticated;
 
@@ -68,4 +67,11 @@ public class ApiAuthentication extends AbstractAuthenticationToken {
         return this.authenticated;
     }
 
+    public String getPassword() {
+        return this.password;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
 }

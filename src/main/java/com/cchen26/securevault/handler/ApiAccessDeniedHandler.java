@@ -17,9 +17,9 @@ import static com.cchen26.securevault.utils.RequestUtils.handleErrorResponse;
  * @email chaochen234@gmail.com
  * @since 2024-09-08
  */
+
 @Component
 public class ApiAccessDeniedHandler implements AccessDeniedHandler {
-
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException exception) throws IOException, ServletException {
         handleErrorResponse(request, response, exception);

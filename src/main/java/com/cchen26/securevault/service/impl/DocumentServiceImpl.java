@@ -37,11 +37,11 @@ import static org.springframework.util.StringUtils.cleanPath;
  * @email chaochen234@gmail.com
  * @since 2024-10-05
  */
+
 @Service
 @Transactional(rollbackOn = Exception.class)
 @RequiredArgsConstructor
 public class DocumentServiceImpl implements DocumentService {
-
     private final DocumentRepository documentRepository;
     private final UserRepository userRepository;
     private final UserService userService;
@@ -102,8 +102,7 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     private DocumentEntity getDocumentEntity(String documentId) {
-        return documentRepository.findByDocumentId(documentId)
-                .orElseThrow(() -> new ApiException("Document not found"));
+        return documentRepository.findByDocumentId(documentId).orElseThrow(() -> new ApiException("Document not found"));
     }
 
     @Override
@@ -113,17 +112,14 @@ public class DocumentServiceImpl implements DocumentService {
 
     @Override
     public IDocument getDocumentByDocumentId(String documentId) {
-        return documentRepository.findDocumentByDocumentId(documentId)
-                .orElseThrow(() -> new ApiException("Document not found"));
+        return documentRepository.findDocumentByDocumentId(documentId).orElseThrow(() -> new ApiException("Document not found"));
     }
 
     @Override
     public Resource getResource(String documentName) {
         try {
             var filePath = Paths.get(FILE_STORAGE).toAbsolutePath().normalize().resolve(documentName);
-            if (!Files.exists(filePath)) {
-                throw new ApiException("Document not found");
-            }
+            if(!Files.exists(filePath)) { throw new ApiException("Document not found"); }
             return new UrlResource(filePath.toUri());
         } catch (Exception exception) {
             throw new ApiException("Unable to download document");

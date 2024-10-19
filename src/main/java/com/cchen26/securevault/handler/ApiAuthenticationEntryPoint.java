@@ -20,7 +20,6 @@ import static com.cchen26.securevault.utils.RequestUtils.handleErrorResponse;
 
 @Component
 public class ApiAuthenticationEntryPoint implements AuthenticationEntryPoint {
-
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         handleErrorResponse(request, response, exception);

@@ -23,6 +23,7 @@ import static com.cchen26.securevault.domain.ApiAuthentication.authenticated;
  * @email chaochen234@gmail.com
  * @since 2024-08-11
  */
+
 @Component
 @RequiredArgsConstructor
 public class ApiAuthenticationProvider implements AuthenticationProvider {

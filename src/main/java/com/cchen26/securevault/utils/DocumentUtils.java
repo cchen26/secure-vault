@@ -13,6 +13,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
  * @email chaochen234@gmail.com
  * @since 2024-10-05
  */
+
 public class DocumentUtils {
 
     public static Document fromDocumentEntity(DocumentEntity documentEntity, User createdBy, User updatedBy) {

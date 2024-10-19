@@ -13,6 +13,7 @@ import java.util.Optional;
  * @email chaochen234@gmail.com
  * @since 2024-06-24
  */
+
 @Repository
 public interface RoleRepository extends JpaRepository<RoleEntity, Long> {
     Optional<RoleEntity> findByNameIgnoreCase(String name);

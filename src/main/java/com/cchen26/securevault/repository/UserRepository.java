@@ -13,6 +13,7 @@ import java.util.Optional;
  * @email chaochen234@gmail.com
  * @since 2024-06-24
  */
+
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
     Optional<UserEntity> findByEmailIgnoreCase(String email);

@@ -2,6 +2,7 @@ package com.cchen26.securevault.resource;
 
 import com.cchen26.securevault.domain.Response;
 import com.cchen26.securevault.dto.User;
+import com.cchen26.securevault.dtorequest.UpdateDocRequest;
 import com.cchen26.securevault.service.DocumentService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,7 @@ import static org.springframework.http.HttpStatus.OK;
  * @email chaochen234@gmail.com
  * @since 2024-10-05
  */
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = { "/documents" })
@@ -40,12 +42,7 @@ public class DocumentResource {
     @PostMapping("/upload")
     @PreAuthorize("hasAnyAuthority('document:create') or hasAnyRole('ADMIN', 'SUPER_ADMIN')")
     public ResponseEntity<Response> saveDocuments(@AuthenticationPrincipal User user, @RequestParam("files") List<MultipartFile> documents, HttpServletRequest request) {
-        var test = user.getUserId();
-        //System.out.println("test is +" + test.toString());
-        var test2 = user.getId().toString();
-        System.out.println( "user id is" + user.getId().toString());
         var newDocuments = documentService.saveDocuments(user.getUserId(), documents);
-
         return ResponseEntity.created(create("")).body(getResponse(request, of("documents", newDocuments), "Document(s) uploaded", CREATED));
     }
 
@@ -75,12 +72,12 @@ public class DocumentResource {
         return ResponseEntity.ok(getResponse(request, of("document", document), "Document retrieved", OK));
     }
 
-//    @PatchMapping
-//    @PreAuthorize("hasAnyAuthority('document:update') or hasAnyRole('ADMIN', 'SUPER_ADMIN')")
-//    public ResponseEntity<Response> updateDocument(@AuthenticationPrincipal User user, @RequestBody UpdateDocRequest document, HttpServletRequest request) {
-//        var updateDocument = documentService.updateDocument(document.getDocumentId(), document.getName(), document.getDescription());
-//        return ResponseEntity.ok(getResponse(request, of("document", updateDocument), "Document updated", OK));
-//    }
+    @PatchMapping
+    @PreAuthorize("hasAnyAuthority('document:update') or hasAnyRole('ADMIN', 'SUPER_ADMIN')")
+    public ResponseEntity<Response> updateDocument(@AuthenticationPrincipal User user, @RequestBody UpdateDocRequest document, HttpServletRequest request) {
+        var updateDocument = documentService.updateDocument(document.getDocumentId(), document.getName(), document.getDescription());
+        return ResponseEntity.ok(getResponse(request, of("document", updateDocument), "Document updated", OK));
+    }
 
     @GetMapping("/download/{documentName}")
     @PreAuthorize("hasAnyAuthority('document:read') or hasAnyRole('ADMIN', 'SUPER_ADMIN')")

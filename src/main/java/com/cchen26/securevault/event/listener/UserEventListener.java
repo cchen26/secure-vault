@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
  * @email chaochen234@gmail.com
  * @since 2024-06-22
  */
+
 @Component
 @RequiredArgsConstructor
 public class UserEventListener {
@@ -20,12 +21,9 @@ public class UserEventListener {
     @EventListener
     public void onUserEvent(UserEvent event) {
         switch (event.getType()) {
-            case REGISTRATION ->
-                    emailService.sendNewAccountEmail(event.getUser().getFirstName(), event.getUser().getEmail(), (String) event.getData().get("key"));
-            case RESET_PASSWORD ->
-                    emailService.sendPasswordResetEmail(event.getUser().getFirstName(), event.getUser().getEmail(), (String) event.getData().get("key"));
-            default -> {
-            }
+            case REGISTRATION -> emailService.sendNewAccountEmail(event.getUser().getFirstName(), event.getUser().getEmail(), (String)event.getData().get("key"));
+            case RESET_PASSWORD -> emailService.sendPasswordResetEmail(event.getUser().getFirstName(), event.getUser().getEmail(), (String)event.getData().get("key"));
+            default -> {}
         }
     }
 }
