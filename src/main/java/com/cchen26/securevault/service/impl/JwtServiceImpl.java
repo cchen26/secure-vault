@@ -30,8 +30,6 @@ import java.util.function.Supplier;
 import static com.cchen26.securevault.constant.Constants.*;
 import static com.cchen26.securevault.enumeration.TokenType.ACCESS;
 import static com.cchen26.securevault.enumeration.TokenType.REFRESH;
-import static io.jsonwebtoken.Header.JWT_TYPE;
-import static io.jsonwebtoken.Header.TYPE;
 import static java.time.Instant.now;
 import static java.util.Arrays.stream;
 import static java.util.Date.from;

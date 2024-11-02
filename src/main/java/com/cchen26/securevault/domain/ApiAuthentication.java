@@ -20,9 +20,11 @@ public class ApiAuthentication extends AbstractAuthenticationToken {
     private static final String PASSWORD_PROTECTED = "[PASSWORD PROTECTED]";
     private static final String EMAIL_PROTECTED = "[EMAIL PROTECTED]";
     private User user;
-    private String email;
-    private String password;
-    private boolean authenticated;
+    @Getter
+    private final String email;
+    @Getter
+    private final String password;
+    private final boolean authenticated;
 
     private ApiAuthentication(String email, String password) {
         super(AuthorityUtils.NO_AUTHORITIES);
@@ -67,11 +69,4 @@ public class ApiAuthentication extends AbstractAuthenticationToken {
         return this.authenticated;
     }
 
-    public String getPassword() {
-        return this.password;
-    }
-
-    public String getEmail() {
-        return this.email;
-    }
 }

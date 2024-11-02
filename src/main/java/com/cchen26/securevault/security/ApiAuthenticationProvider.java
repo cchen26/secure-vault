@@ -36,8 +36,6 @@ public class ApiAuthenticationProvider implements AuthenticationProvider {
         var user = userService.getUserByEmail(apiAuthentication.getEmail());
         if(user != null) {
             var userCredential = userService.getUserCredentialById(user.getId());
-            //if(userCredential.getUpdatedAt().minusDays(NINETY_DAYS).isAfter(now())) { throw new ApiException("Credentials are expired. Please reset your password"); }
-            //if(!user.isCredentialsNonExpired()) { throw new ApiException("Credentials are expired. Please reset your password"); }
             var userPrincipal = new UserPrincipal(user, userCredential);
             validAccount.accept(userPrincipal);
             if(encoder.matches(apiAuthentication.getPassword(), userCredential.getPassword())) {

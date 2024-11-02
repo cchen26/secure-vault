@@ -1,5 +1,7 @@
 package com.cchen26.securevault.enumeration;
 
+import lombok.Getter;
+
 /**
  * @author Chao
  * @version 1.0
@@ -7,6 +9,7 @@ package com.cchen26.securevault.enumeration;
  * @since 2024-09-05
  */
 
+@Getter
 public enum TokenType {
     ACCESS("access-token"), REFRESH("refresh-token");
 
@@ -14,5 +17,4 @@ public enum TokenType {
 
     TokenType(String value) { this.value = value; }
 
-    public String getValue() { return this.value; }
 }

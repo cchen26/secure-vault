@@ -10,6 +10,8 @@ package com.cchen26.securevault.constant;
 public class Constants {
     public static final String FILE_STORAGE = System.getProperty("user.home") + "/Downloads/uploads/";
     public static final String[] PUBLIC_URLS = { "/user/logout/**", "/user/resetpassword/reset/**", "/user/verify/resetpassword/**", "/user/resetpassword/**", "/user/verify/qrcode/**", "/user/login/**", "/user/verify/account/**", "/user/register/**", "/user/new/password/**", "/user/verify/**", "/user/resetpassword/**", "/user/image/**", "/user/verify/password/**" };
+    public static final String JWT_TYPE = "JWT";
+    public static final String TYPE = "typ";
     public static final int NINETY_DAYS = 90;
     public static final int STRENGTH = 12;
     public static final String BASE_PATH = "/**";

@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 
 import java.util.Map;
 
-import static com.fasterxml.jackson.annotation.JsonInclude.*;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_DEFAULT;
 
 /**

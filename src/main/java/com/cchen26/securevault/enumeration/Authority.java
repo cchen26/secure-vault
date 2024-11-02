@@ -1,5 +1,7 @@
 package com.cchen26.securevault.enumeration;
 
+import lombok.Getter;
+
 import static com.cchen26.securevault.constant.Constants.*;
 
 /**
@@ -9,6 +11,7 @@ import static com.cchen26.securevault.constant.Constants.*;
  * @since 2024-06-19
  */
 
+@Getter
 public enum Authority {
     USER(USER_AUTHORITIES),
     ADMIN(ADMIN_AUTHORITIES),
@@ -21,7 +24,4 @@ public enum Authority {
         this.value = value;
     }
 
-    public String getValue() {
-        return this.value;
-    }
 }
